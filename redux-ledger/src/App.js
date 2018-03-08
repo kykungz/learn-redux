@@ -24,15 +24,24 @@ const Padding = styled.div`
 `
 
 const App = (props) => {
+  const {
+    addIncome,
+    removeIncome,
+    addExpense,
+    removeExpense,
+    incomes,
+    expenses
+  } = props
+
   return (
     <Padding>
       <h1 className='center-align'>บันทึกรายรับ-รายจ่าย ของกองภณ</h1>
       <Grid>
-        <List list={props.incomes} onRemove={props.removeIncome} color='green' />
-        <List list={props.expenses} onRemove={props.removeExpense} color='red' />
+        <List list={incomes} onRemove={removeIncome} color='green' />
+        <List list={expenses} onRemove={removeExpense} color='red' />
         <h4 className='center-align'>สรุป</h4>
       </Grid>
-      <BottomModal />
+      <BottomModal onConfirm={addIncome} />
     </Padding>
   )
 }
