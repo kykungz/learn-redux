@@ -5,13 +5,7 @@ import BottomModal from './components/BottomModal'
 import styled from 'styled-components'
 import { Input, Modal, Button } from 'react-materialize'
 import { connect } from 'react-redux'
-import {
-  addIncome,
-  removeIncome,
-  addExpense,
-  removeExpense
-} from './redux/modules/ledger'
-
+import * as ledgerActions from './redux/modules/ledger'
 
 const Grid = styled.div`
   display: grid;
@@ -52,10 +46,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-  addIncome,
-  removeIncome,
-  addExpense,
-  removeExpense
+  ...ledgerActions
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
