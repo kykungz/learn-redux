@@ -1,11 +1,11 @@
 import React from 'react'
 import { Modal, Input, Button } from 'react-materialize'
-import { compose, withStateHandlers } from 'recompose'
+import { withStateHandlers } from 'recompose'
 
 const enhance = withStateHandlers(
   // States
   {
-    name: 'hi',
+    name: '',
     price: 0
   },
   // State Handlers
@@ -13,9 +13,12 @@ const enhance = withStateHandlers(
     handleNameChange: (state, props) => event => ({
       name: event.target.value
     }),
-    handlePriceChange: (state, props) => event => ({
-      price: parseInt(event.target.value)
-    }),
+    handlePriceChange: (state, props) => event => {
+      const value = parseInt(event.target.value.replace(/,/g, ''))
+      return {
+        price: (value > Number.MAX_SAFE_INTEGER ? state.price : value) || 0
+      }
+    },
     resetInput: (state, props) => () => ({
       name: '',
       price: 0
@@ -24,7 +27,7 @@ const enhance = withStateHandlers(
 )
 
 const BottomModal = (props) => {
-  console.log(props.name)
+  console.log(props.price)
   return (
     <Modal
       header={props.header}
@@ -40,11 +43,7 @@ const BottomModal = (props) => {
       }
     >
       <Input value={props.name} onChange={props.handleNameChange} label='รายการ' />
-      {/*
-        normal <input /> is working fine btw. But it cannot have label like the <Input />
-        <input value={props.name} onChange={props.handleNameChange} type='text' />
-      */}
-
+      <Input value={props.price.toLocaleString()} onChange={props.handlePriceChange} label='ราคา' />
     </Modal>
   )
 }
