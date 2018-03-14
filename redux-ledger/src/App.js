@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { CardPanel } from 'react-materialize'
-import * as ledgerActions from './redux/modules/ledger'
+import * as ledgerActions from './redux/modules/ledger/actions'
 
 const Grid = styled.div`
   display: grid;

@@ -1,10 +1,4 @@
-/* ledger module for recording income / expense */
-
-// Actions
-const ADD_INCOME = 'redux-ledger/ledger/ADD-INCOME'
-const REMOVE_INCOME = 'redux-ledger/ledger/REMOVE-INCOME'
-const ADD_EXPENSE = 'redux-ledger/ledger/ADD-EXPENSE'
-const REMOVE_EXPENSE = 'redux-ledger/ledger/REMOVE-EXPENSE'
+import * as types from './types'
 
 // Initial State
 const initialState = {
@@ -15,12 +9,12 @@ const initialState = {
 // Reducer
 export default (state = initialState, action = {}) => {
   switch (action.type) {
-    case ADD_INCOME:
+    case types.ADD_INCOME:
       return {
         ...state,
         incomes: [...state.incomes, action.payload]
       }
-    case ADD_EXPENSE:
+    case types.ADD_EXPENSE:
       return {
         ...state,
         expenses: [...state.expenses, {
@@ -28,12 +22,12 @@ export default (state = initialState, action = {}) => {
           price: Math.abs(action.payload.price)
         }]
       }
-    case REMOVE_INCOME:
+    case types.REMOVE_INCOME:
       return {
         ...state,
         incomes: state.incomes.filter((item, i) => i !== action.id)
       }
-    case REMOVE_EXPENSE:
+    case types.REMOVE_EXPENSE:
       return {
         ...state,
         expenses: state.expenses.filter((item, i) => i !== action.id)
@@ -42,24 +36,3 @@ export default (state = initialState, action = {}) => {
       return state
   }
 }
-
-// Action Creators
-export const addIncome = (payload) => ({
-  type: ADD_INCOME,
-  payload
-})
-
-export const removeIncome = (id) => ({
-  type: REMOVE_INCOME,
-  id
-})
-
-export const addExpense = (payload) => ({
-  type: ADD_EXPENSE,
-  payload
-})
-
-export const removeExpense = (id) => ({
-  type: REMOVE_EXPENSE,
-  id
-})

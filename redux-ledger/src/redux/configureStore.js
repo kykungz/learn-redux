@@ -1,12 +1,12 @@
 import { createStore, combineReducers } from 'redux'
-import ledger from './modules/ledger'
+import ledgerReducer from './modules/ledger/reducer'
 
-const reducer = combineReducers({
-  ledger
+const reducers = combineReducers({
+  ledgerReducer
 })
 
 const configureStore = () => createStore(
-  reducer, /* preloadedState, */
+  reducers, /* preloadedState, */
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 
