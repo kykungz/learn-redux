@@ -7,9 +7,9 @@ const List = (props) => (
   <Table bordered hoverable>
     <thead>
       <tr>
-        <th data-field='name'>Name</th>
-        <th className='right-align' data-field='price'>Price</th>
-        <th className='center-align' data-field='remove'>Remove</th>
+        <th data-field='name'>รายการ</th>
+        <th className='right-align' data-field='price'>ราคา</th>
+        <th className='center-align' data-field='remove'>ลบ</th>
       </tr>
     </thead>
     <tbody>
