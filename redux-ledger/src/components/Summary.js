@@ -12,6 +12,22 @@ const Right = styled.span`
   float: right;
 `
 
+const DynamicColor = Color.extend`
+  color: ${props => {
+    if (props.number < -1000) {
+      return 'red'
+    } else if (props.number < 0) {
+      return 'salmon'
+    } else if (props.number > 0) {
+      return 'lightseagreen'
+    } else if (props.number > 1000) {
+      return 'limegreen'
+    } else {
+      return 'black'
+    }
+  }}
+`
+
 const Summary = (props) => (
   <div>
     <h3 className='center-align'>สรุป</h3>
@@ -27,7 +43,7 @@ const Summary = (props) => (
     <h5>
       รายจ่าย:
       <Right>
-        <Color color='orangered'>
+        <Color color='red'>
           {props.totalExpense.toLocaleString()}
         </Color>
         บาท
@@ -36,9 +52,9 @@ const Summary = (props) => (
     <h5>
       รวม:
       <Right>
-        <Color color='orangered'>
+        <DynamicColor className='pulse' number={props.totalIncome - props.totalExpense}>
           {(props.totalIncome - props.totalExpense).toLocaleString()}
-        </Color>
+        </DynamicColor>
         บาท
       </Right>
     </h5>
