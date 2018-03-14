@@ -1,4 +1,4 @@
-import types from './types'
+import * as types from './types'
 
 // Action Creators
 export const addIncome = (payload) => ({

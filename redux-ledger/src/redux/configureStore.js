@@ -1,8 +1,8 @@
 import { createStore, combineReducers } from 'redux'
-import ledgerReducer from './modules/ledger/reducer'
+import ledger from './modules/ledger/reducer'
 
 const reducers = combineReducers({
-  ledgerReducer
+  ledger
 })
 
 const configureStore = () => createStore(
