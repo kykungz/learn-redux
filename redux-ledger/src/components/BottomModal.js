@@ -18,7 +18,7 @@ class BottomModal extends React.Component {
   }
 
   handlePriceChange = (event) => {
-    const value = parseInt(event.target.value.replace(/,/g, ''))
+    const value = parseInt(event.target.value.replace(/,/g, ''), 10)
     this.setState(prevState => ({
       price: (value > Number.MAX_SAFE_INTEGER ? prevState.price : value) || 0
     }))
@@ -29,6 +29,10 @@ class BottomModal extends React.Component {
       name: '',
       price: 0
     })
+  }
+
+  onConfirm = () => {
+    this.props.onConfirm(this.state.name, this.state.price)
   }
 
   render () {
@@ -50,7 +54,7 @@ class BottomModal extends React.Component {
             <Button onClick={this.resetInput} modal='close' flat className='grey lighten-5'>
               ยกเลิก
             </Button>
-            <Button onClick={this.props.onConfirm} modal='close' waves='light'>
+            <Button onClick={this.onConfirm} modal='close' waves='light'>
               เพิ่ม
             </Button>
           </div>

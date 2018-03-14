@@ -16,26 +16,37 @@ const Padding = styled.div`
   padding: 1em;
 `
 
-const App = (props) => {
-  return (
-    <Padding>
-      <h1 className='center-align'>บันทึกรายรับ-รายจ่าย ของกองภณ</h1>
-      <Grid>
-        <List list={props.incomes} onRemove={props.removeIncome} color='green' />
-        <List list={props.expenses} onRemove={props.removeExpense} color='red' />
-        <h4 className='center-align'>สรุป</h4>
-      </Grid>
-      <BottomModal header='เพิ่มรายการ' onConfirm={props.addIncome} />
-    </Padding>
-  )
-}
+class App extends React.Component {
+  static propTypes = {
+    incomes: PropTypes.array,
+    expenses: PropTypes.array,
+    removeIncome: PropTypes.func,
+    removeExpense: PropTypes.func,
+    addIncome: PropTypes.func,
+    addExpense: PropTypes.func
+  }
 
-App.propTypes = {
-  incomes: PropTypes.array,
-  expenses: PropTypes.array,
-  removeIncome: PropTypes.func,
-  removeExpense: PropTypes.func,
-  addIncome: PropTypes.func
+  addItem = (name, price) => {
+    if (price > 0) {
+      this.props.addIncome({ name, price })
+    } else {
+      this.props.addExpense({ name, price })
+    }
+  }
+
+  render () {
+    return (
+      <Padding>
+        <h1 className='center-align'>บันทึกรายรับ-รายจ่าย ของกองภณ</h1>
+        <Grid>
+          <List list={this.props.incomes} onRemove={this.props.removeIncome} color='green' />
+          <List list={this.props.expenses} onRemove={this.props.removeExpense} color='red' />
+          <h4 className='center-align'>สรุป</h4>
+        </Grid>
+        <BottomModal header='เพิ่มรายการ' onConfirm={this.addItem} />
+      </Padding>
+    )
+  }
 }
 
 const mapStateToProps = (state) => ({
