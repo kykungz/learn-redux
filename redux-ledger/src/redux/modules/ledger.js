@@ -9,7 +9,7 @@ const REMOVE_EXPENSE = 'redux-ledger/ledger/REMOVE-EXPENSE'
 // Initial State
 const initialState = {
   incomes: [{name: 'เงินเดือน', price: 15000}, {name: 'ขโมยเงิน', price: 40}],
-  expenses: [{name: 'ค่าเทอม', price: 2000}, {name: 'ป๊อปคอร์น', price: 99}]
+  expenses: [{name: 'ค่าเทอม', price: -2000}, {name: 'ป๊อปคอร์น', price: -99}]
 }
 
 // Reducer

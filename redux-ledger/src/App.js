@@ -4,6 +4,7 @@ import BottomModal from './components/BottomModal'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { CardPanel } from 'react-materialize'
 import * as ledgerActions from './redux/modules/ledger'
 
 const Grid = styled.div`
@@ -29,6 +30,16 @@ const GridArea = styled.div`
   grid-area: ${props => props.area};
 `
 
+const Color = styled.span`
+  color: ${props => props.color};
+  font-family: monospace;
+  padding-right: .5em;
+`
+
+const Right = styled.span`
+  float: right;
+`
+
 const Padding = styled.div`
   padding: 1em;
 `
@@ -52,32 +63,64 @@ class App extends React.Component {
   }
 
   render () {
+    const totalIncome = this.props.incomes.reduce((acc, cur) => acc + cur.price, 0)
+    const totalExpense = this.props.expenses.reduce((acc, cur) => acc + cur.price, 0)
+
     return (
       <Padding>
         <h1 className='center-align'>บันทึกรายรับ-รายจ่าย ของกองภณ</h1>
         <Grid>
           <GridArea area='a'>
-            <List
-              title='รายรับ'
-              list={this.props.incomes}
-              onRemove={this.props.removeIncome}
-              color='green'
-            />
+            <CardPanel className='green lighten-5'>
+              <List
+                title='รายรับ'
+                list={this.props.incomes}
+                onRemove={this.props.removeIncome}
+                color='limegreen'
+              />
+            </CardPanel>
           </GridArea>
           <GridArea area='b'>
-            <List
-              title='รายจ่าย'
-              list={this.props.expenses}
-              onRemove={this.props.removeExpense}
-              color='red'
-            />
+            <CardPanel className='red lighten-5'>
+              <List
+                title='รายจ่าย'
+                list={this.props.expenses}
+                onRemove={this.props.removeExpense}
+                color='red'
+              />
+            </CardPanel>
           </GridArea>
           <GridArea area='c'>
-            <div>
+            <CardPanel className='grey lighten-5'>
               <h3 className='center-align'>สรุป</h3>
-              <h4 className='center-align'>รายรับทั้งหมด: 5,200</h4>
-              <h4 className='center-align'>รายรับทั้งหมด: 5,200</h4>
-            </div>
+              <h5>
+                รายรับ:
+                <Right>
+                  <Color color='limegreen'>
+                    {totalIncome.toLocaleString()}
+                  </Color>
+                  บาท
+                </Right>
+              </h5>
+              <h5>
+                รายจ่าย:
+                <Right>
+                  <Color color='orangered'>
+                    {totalExpense.toLocaleString()}
+                  </Color>
+                  บาท
+                </Right>
+              </h5>
+              <h5>
+                รวม:
+                <Right>
+                  <Color color='orangered'>
+                    {(totalIncome + totalExpense).toLocaleString()}
+                  </Color>
+                  บาท
+                </Right>
+              </h5>
+            </CardPanel>
           </GridArea>
         </Grid>
         <BottomModal header='เพิ่มรายการ' onConfirm={this.addItem} />
@@ -87,10 +130,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  ...state.ledger,
-  expenses: state.ledger.expenses.map(item =>
-    ({ name: item.name, price: Math.abs(item.price) })
-  )
+  ...state.ledger
 })
 
 const mapDispatchToProps = {

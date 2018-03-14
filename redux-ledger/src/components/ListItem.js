@@ -5,13 +5,18 @@ import { Button } from 'react-materialize'
 
 const Price = styled.span`
   font-family: monospace;
+  font-size: 18px;
   color: ${props => props.color || 'black'};
+`
+
+const Name = styled.span`
+  font-size: 20px;
 `
 
 const ListItem = (props) => (
   <tr>
     <td>
-      {props.name}
+      <Name>{props.name}</Name>
     </td>
     <td className='right-align'>
       <Price color={props.color}>{props.price.toLocaleString()}</Price>

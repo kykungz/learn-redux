@@ -6,7 +6,7 @@ import { Table } from 'react-materialize'
 const List = (props) => (
   <div>
     <h3 className='center-align'>{props.title}</h3>
-    <Table bordered hoverable>
+    <Table bordered>
       <thead>
         <tr>
           <th data-field='name'>รายการ</th>
