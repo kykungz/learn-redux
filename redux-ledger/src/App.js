@@ -1,9 +1,8 @@
 import React from 'react'
 import List from './components/List'
-import ListItem from './components/ListItem'
 import BottomModal from './components/BottomModal'
 import styled from 'styled-components'
-import { Input, Modal, Button } from 'react-materialize'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as ledgerActions from './redux/modules/ledger'
 
@@ -18,26 +17,25 @@ const Padding = styled.div`
 `
 
 const App = (props) => {
-  const {
-    addIncome,
-    removeIncome,
-    addExpense,
-    removeExpense,
-    incomes,
-    expenses
-  } = props
-
   return (
     <Padding>
       <h1 className='center-align'>บันทึกรายรับ-รายจ่าย ของกองภณ</h1>
       <Grid>
-        <List list={incomes} onRemove={removeIncome} color='green' />
-        <List list={expenses} onRemove={removeExpense} color='red' />
+        <List list={props.incomes} onRemove={props.removeIncome} color='green' />
+        <List list={props.expenses} onRemove={props.removeExpense} color='red' />
         <h4 className='center-align'>สรุป</h4>
       </Grid>
-      <BottomModal onConfirm={addIncome} />
+      <BottomModal header='เพิ่มรายการ' onConfirm={props.addIncome} />
     </Padding>
   )
+}
+
+App.propTypes = {
+  incomes: PropTypes.array,
+  expenses: PropTypes.array,
+  removeIncome: PropTypes.func,
+  removeExpense: PropTypes.func,
+  addIncome: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({

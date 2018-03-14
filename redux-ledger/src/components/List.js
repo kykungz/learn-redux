@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import PropTypes from 'prop-types'
 import ListItem from './ListItem'
 import { Table } from 'react-materialize'
 
@@ -9,7 +9,7 @@ const List = (props) => (
       <tr>
         <th data-field='name'>Name</th>
         <th className='right-align' data-field='price'>Price</th>
-        <th className='right-align' data-field='remove'>Remove</th>
+        <th className='center-align' data-field='remove'>Remove</th>
       </tr>
     </thead>
     <tbody>
@@ -19,5 +19,10 @@ const List = (props) => (
     </tbody>
   </Table>
 )
+
+List.propTypes = {
+  list: PropTypes.array,
+  color: PropTypes.string
+}
 
 export default List
