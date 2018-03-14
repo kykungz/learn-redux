@@ -18,24 +18,12 @@ export default (state = initialState, action = {}) => {
     case ADD_INCOME:
       return {
         ...state,
-        incomes: [
-          ...state.incomes,
-          {
-            name: action.payload.name,
-            price: Math.abs(action.payload.price)
-          }
-        ]
+        incomes: [...state.incomes, action.payload]
       }
     case ADD_EXPENSE:
       return {
         ...state,
-        expenses: [
-          ...state.expenses,
-          {
-            name: action.payload.name,
-            price: Math.abs(action.payload.price)
-          }
-        ]
+        expenses: [...state.expenses, action.payload]
       }
     case REMOVE_INCOME:
       return {

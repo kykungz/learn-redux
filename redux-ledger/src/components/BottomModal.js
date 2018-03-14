@@ -10,7 +10,7 @@ class BottomModal extends React.Component {
 
   state = {
     name: '',
-    price: 0
+    price: ''
   }
 
   handleNameChange = (event) => {
@@ -18,10 +18,15 @@ class BottomModal extends React.Component {
   }
 
   handlePriceChange = (event) => {
-    const value = parseInt(event.target.value.replace(/,/g, ''), 10)
-    this.setState(prevState => ({
-      price: (value > Number.MAX_SAFE_INTEGER ? prevState.price : value) || 0
-    }))
+    const input = event.target.value.replace(/,/g, '')
+    if (input === '-') {
+      this.setState({ price: input })
+    } else if (input.slice(-1) === '-') {
+      const price = (-1 * (parseInt(input.slice(0, -1), 10) || 0)).toLocaleString()
+      this.setState(prevState => ({ price }))
+    } else {
+      this.setState({ price: (parseInt(input, 10) || 0).toLocaleString() })
+    }
   }
 
   resetInput = () => {
@@ -32,7 +37,12 @@ class BottomModal extends React.Component {
   }
 
   onConfirm = () => {
-    this.props.onConfirm(this.state.name, this.state.price)
+    const value = this.state.price.replace(/,/g, '')
+    this.props.onConfirm(this.state.name, parseInt(value, 10))
+  }
+
+  translate = (price) => {
+
   }
 
   render () {
@@ -61,7 +71,7 @@ class BottomModal extends React.Component {
         }
       >
         <Input value={this.state.name} onChange={this.handleNameChange} label='รายการ' />
-        <Input value={this.state.price.toLocaleString()} onChange={this.handlePriceChange} label='ราคา' />
+        <Input value={this.state.price} onChange={this.handlePriceChange} label='ราคา' />
       </Modal>
     )
   }

@@ -57,7 +57,8 @@ class App extends React.Component {
         <h1 className='center-align'>บันทึกรายรับ-รายจ่าย ของกองภณ</h1>
         <Grid>
           <GridArea area='a'>
-            <List title='รายรับ'
+            <List
+              title='รายรับ'
               list={this.props.incomes}
               onRemove={this.props.removeIncome}
               color='green'
@@ -73,7 +74,7 @@ class App extends React.Component {
           </GridArea>
           <GridArea area='c'>
             <div>
-              <h4 className='center-align'>สรุป</h4>
+              <h3 className='center-align'>สรุป</h3>
               <h4 className='center-align'>รายรับทั้งหมด: 5,200</h4>
               <h4 className='center-align'>รายรับทั้งหมด: 5,200</h4>
             </div>
@@ -86,7 +87,10 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  ...state.ledger
+  ...state.ledger,
+  expenses: state.ledger.expenses.map(item =>
+    ({ name: item.name, price: Math.abs(item.price) })
+  )
 })
 
 const mapDispatchToProps = {
