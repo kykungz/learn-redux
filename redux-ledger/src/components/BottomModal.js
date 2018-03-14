@@ -19,8 +19,8 @@ class BottomModal extends React.Component {
 
   handlePriceChange = (event) => {
     const input = event.target.value.replace(/,/g, '')
-    if (input === '-') {
-      this.setState({ price: input })
+    if (input === '-' || input === '0-') {
+      this.setState({ price: '-' })
     } else if (input.slice(-1) === '-') {
       const price = (-1 * (parseInt(input.slice(0, -1), 10) || 0)).toLocaleString()
       this.setState(prevState => ({ price }))

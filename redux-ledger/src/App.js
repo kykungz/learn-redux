@@ -1,6 +1,7 @@
 import React from 'react'
 import List from './components/List'
 import BottomModal from './components/BottomModal'
+import Summary from './components/Summary'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -30,16 +31,6 @@ const GridArea = styled.div`
   grid-area: ${props => props.area};
 `
 
-const Color = styled.span`
-  color: ${props => props.color};
-  font-family: monospace;
-  padding-right: .5em;
-`
-
-const Right = styled.span`
-  float: right;
-`
-
 const Padding = styled.div`
   padding: 1em;
 `
@@ -63,12 +54,9 @@ class App extends React.Component {
   }
 
   render () {
-    const totalIncome = this.props.incomes.reduce((acc, cur) => acc + cur.price, 0)
-    const totalExpense = this.props.expenses.reduce((acc, cur) => acc + cur.price, 0)
-
     return (
       <Padding>
-        <h1 className='center-align'>บันทึกรายรับ-รายจ่าย ของกองภณ</h1>
+        <h1 className='center-align'>บันทึกรายรับ-รายจ่าย<br />ของกองภณ</h1>
         <Grid>
           <GridArea area='a'>
             <CardPanel className='green lighten-5'>
@@ -92,34 +80,10 @@ class App extends React.Component {
           </GridArea>
           <GridArea area='c'>
             <CardPanel className='grey lighten-5'>
-              <h3 className='center-align'>สรุป</h3>
-              <h5>
-                รายรับ:
-                <Right>
-                  <Color color='limegreen'>
-                    {totalIncome.toLocaleString()}
-                  </Color>
-                  บาท
-                </Right>
-              </h5>
-              <h5>
-                รายจ่าย:
-                <Right>
-                  <Color color='orangered'>
-                    {totalExpense.toLocaleString()}
-                  </Color>
-                  บาท
-                </Right>
-              </h5>
-              <h5>
-                รวม:
-                <Right>
-                  <Color color='orangered'>
-                    {(totalIncome + totalExpense).toLocaleString()}
-                  </Color>
-                  บาท
-                </Right>
-              </h5>
+              <Summary
+                totalIncome={this.props.incomes.reduce((acc, cur) => acc + cur.price, 0)}
+                totalExpense={this.props.expenses.reduce((acc, cur) => acc + cur.price, 0)}
+              />
             </CardPanel>
           </GridArea>
         </Grid>

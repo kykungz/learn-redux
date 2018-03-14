@@ -9,6 +9,14 @@ import 'materialize-css/dist/css/materialize.min.css'
 import 'materialize-css/dist/js/materialize.min'
 
 injectGlobal`
+  body {
+    background: #2d2d2d;
+    margin-bottom: 80px;
+  }
+
+  h1 {
+    color: white;
+  }
 `
 
 const store = configureStore()
