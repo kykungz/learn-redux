@@ -9,7 +9,7 @@ const REMOVE_EXPENSE = 'redux-ledger/ledger/REMOVE-EXPENSE'
 // Initial State
 const initialState = {
   incomes: [{name: 'เงินเดือน', price: 15000}, {name: 'ขโมยเงิน', price: 40}],
-  expenses: [{name: 'ค่าเทอม', price: -2000}, {name: 'ป๊อปคอร์น', price: -99}]
+  expenses: [{name: 'ค่าเทอม', price: 64000}, {name: 'ป๊อปคอร์น', price: 99}]
 }
 
 // Reducer
@@ -23,7 +23,10 @@ export default (state = initialState, action = {}) => {
     case ADD_EXPENSE:
       return {
         ...state,
-        expenses: [...state.expenses, action.payload]
+        expenses: [...state.expenses, {
+          name: action.payload.name,
+          price: Math.abs(action.payload.price)
+        }]
       }
     case REMOVE_INCOME:
       return {
