@@ -32,17 +32,14 @@ class BottomModal extends React.Component {
   resetInput = () => {
     this.setState({
       name: '',
-      price: 0
+      price: ''
     })
   }
 
   onConfirm = () => {
     const value = this.state.price.replace(/,/g, '')
     this.props.onConfirm(this.state.name, parseInt(value, 10))
-  }
-
-  translate = (price) => {
-
+    this.resetInput()
   }
 
   render () {

@@ -46,10 +46,12 @@ class App extends React.Component {
   }
 
   addItem = (name, price) => {
-    if (price > 0) {
-      this.props.addIncome({ name, price })
-    } else {
-      this.props.addExpense({ name, price })
+    if (name && price) {
+      if (price > 0) {
+        this.props.addIncome({ name, price })
+      } else {
+        this.props.addExpense({ name, price })
+      }
     }
   }
 
