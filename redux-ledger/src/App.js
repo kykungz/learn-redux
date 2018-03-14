@@ -8,8 +8,25 @@ import * as ledgerActions from './redux/modules/ledger'
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas: 'a b c';
   grid-column-gap: 1em;
+
+  @media (max-width: 1024px) {
+    grid-template-areas:
+      'a b'
+      'c c';
+  }
+
+  @media (max-width: 768px) {
+    grid-template-areas:
+      'a'
+      'b'
+      'c';
+  }
+`
+
+const GridArea = styled.div`
+  grid-area: ${props => props.area};
 `
 
 const Padding = styled.div`
@@ -39,9 +56,28 @@ class App extends React.Component {
       <Padding>
         <h1 className='center-align'>บันทึกรายรับ-รายจ่าย ของกองภณ</h1>
         <Grid>
-          <List list={this.props.incomes} onRemove={this.props.removeIncome} color='green' />
-          <List list={this.props.expenses} onRemove={this.props.removeExpense} color='red' />
-          <h4 className='center-align'>สรุป</h4>
+          <GridArea area='a'>
+            <List title='รายรับ'
+              list={this.props.incomes}
+              onRemove={this.props.removeIncome}
+              color='green'
+            />
+          </GridArea>
+          <GridArea area='b'>
+            <List
+              title='รายจ่าย'
+              list={this.props.expenses}
+              onRemove={this.props.removeExpense}
+              color='red'
+            />
+          </GridArea>
+          <GridArea area='c'>
+            <div>
+              <h4 className='center-align'>สรุป</h4>
+              <h4 className='center-align'>รายรับทั้งหมด: 5,200</h4>
+              <h4 className='center-align'>รายรับทั้งหมด: 5,200</h4>
+            </div>
+          </GridArea>
         </Grid>
         <BottomModal header='เพิ่มรายการ' onConfirm={this.addItem} />
       </Padding>

@@ -16,7 +16,7 @@ const ListItem = (props) => (
     <td className='right-align'>
       <Price color={props.color}>{props.price.toLocaleString()}</Price>
     </td>
-    <td className='center-align'>
+    <td className='right-align'>
       <Button onClick={props.onRemove} className='red' waves='light' icon='close' />
     </td>
   </tr>
